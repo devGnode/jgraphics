@@ -1,3 +1,4 @@
+// @date: 2018
 class GraphicalUserInterface{
 
     static verion = "3.0.0-es2020";
@@ -225,7 +226,7 @@ class Tiles{
      * @return {*}
      */
     setTilesByOffset( offset = 0, tile = null, color = 0, background = 0 ){
-        return this.setTiles(
+        return this.setTile(
             parseInt( offset% ( this.#frame.screenY / this.#offsetTilesX ) ),
             parseInt( offset/ ( this.#frame.screenX / this.#offsetTilesX ) ),
             tile, color, background
@@ -538,9 +539,7 @@ class FrameBuffer{
                     parseInt( (parseInt(offset/nx ) + offsetY)  ),
                     overflow
                 ): void 0;
-
             }
-
         }catch (e) {
             console.log(e);
             return this;
@@ -549,7 +548,6 @@ class FrameBuffer{
     }
 
     rot(degree=0, overflow=-1, x = 0, y = 0){return this.rotate(degree,overflow,x,y);  }
-
     /***
      * @param xa
      * @param ya
@@ -570,7 +568,6 @@ class FrameBuffer{
         // distance Euclidean
         // AXE X [ xa, xb ]
         dist = parseInt(Math.sqrt( Math.pow(xb-xa, 2 ) + Math.pow(yb-ya, 2) ))-(base-i);
-        //if(dist<=0)console.log("dist neg "+ dist, i, base, " xb-xa ", xb-xa, "yb-ya", (yb-ya))
         if((xb-xa) !== 0){
             m = (yb-ya)/(xb-xa);
             while( i <= base ){
@@ -707,6 +704,10 @@ class TemplateDraw{
             .bind( x+width,y, x+width,y+height, color)
             .bind( x+width,y+height, x,y+height, color )
             .bind(  x,y+height, x,y, color);
+    }
+
+    cerc( xCenter = 0, yCenter = 0, rayon = 0 ){
+
     }
 }
 

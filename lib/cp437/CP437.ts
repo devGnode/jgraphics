@@ -1,4 +1,9 @@
-class CP437{}
+///<amd-module name='/lib/cp437/CP437.js'/>
+export abstract class CP437{
+    public static CP_437_9x14:Array<Array<number>>;
+    public static CP_437_9x16:Array<Array<number>>;
+    public static CP_437_8x16:Array<Array<number>>;
+}
 /****
  *  9 * 14
  */
@@ -783,4 +788,4 @@ CP437.CP_437_8x16 = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 /***
  * 8 * 8
  */
-export default CP437;
+

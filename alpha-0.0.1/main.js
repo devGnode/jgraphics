@@ -9,3 +9,10 @@ window.FlowLayout = FlowLayout;
 window.Layout = Layout;
 window.GraphicsElement = GraphicsElement;
 window.GText = GText;
+
+require.config({
+    baseUrl: 'lib/',
+    paths: {
+        'compute': 'lib/'
+    }
+});

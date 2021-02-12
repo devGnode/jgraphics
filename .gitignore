@@ -1,0 +1,14 @@
+# node
+node_modules/
+
+# output
+prod-common/
+prod-web/
+
+# log
+log/
+*.log
+
+# dev project
+lib/*.js.map
+lib/*.d.ts

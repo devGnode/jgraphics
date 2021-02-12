@@ -1,7 +1,14 @@
 /****
- * So after much time, to try to use requireJs
- * i have take very old cold that i have stole
- * to facebook boot in 2010
+ * So after to pass much time, to try to use requireJs,
+ * i've had get much of troubles between the url given
+ * by the typescript compiler and requireJS much of error
+ * 404 not found, so after 24h i have take very old code
+ * that i have stole to facebook in 2010, and i have adapted
+ * it, you can find this in much old github project like
+ * 'JSWireshark'. this code is'nt as efficient that requireJS
+ * but my app work.
+ *
+ * @todo : remove dead code
  */
 (function( self ){
     let exportable = {}, baseUrl = "", i = 0;

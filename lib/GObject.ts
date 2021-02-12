@@ -129,11 +129,11 @@ export class GObject implements gObject{
         return this;
     }
 
-    public resizeWidth( width:number ){
+    public resizeWidth( width:number ): GObject{
         return this.resize(width,null);
     }
 
-    public resizeHeight( width:number ){
+    public resizeHeight( width:number ): GObject{
         return this.resize(width,null);
     }
 

@@ -39,7 +39,7 @@ export class GraphicalUserInterface implements graphicalUserInterface{
 
     get screenY( ){ return this.screen_y();}
 
-    public drawImage( domImg: HTMLImageElement ):void{
+        public drawImage( domImg: HTMLImageElement ):void{
         this.ctxMonitor.drawImage( domImg, 0, 0 );
     }
     /***
@@ -73,7 +73,7 @@ export class GraphicalUserInterface implements graphicalUserInterface{
      * @return {string}
      */
     // @ts-ignore
-    public snapshot( ){return this.ctxMonitor.toDataURL( );}
+    public snapshot( ):string{return this.ctxMonitor.toDataURL( );}
     /***
      */
     public refresh( frameBuffer ):FrameBuffer{
@@ -85,8 +85,8 @@ export class GraphicalUserInterface implements graphicalUserInterface{
 
 export class FrameBuffer implements frameBuffer{
 
-    public static readonly RESET_BACKGROUND = 0xFF000000;
-    public static readonly BITS_PER_PIXEL   = 0x04;
+        public static readonly RESET_BACKGROUND:dword = 0xFF000000;
+    public static readonly BITS_PER_PIXEL:byte    = 0x04;
 
     private buffer:ImageData    = null;
     private dim:frameBuilderDim = null;
@@ -170,7 +170,7 @@ export class FrameBuffer implements frameBuffer{
      * @param y
      * @return {number}
      */
-    getPixel( x:number = 0, y:number = 0 ){return this.getRawPixel(( ( y * this.dim.x ) + x )* this.bpp );}
+    getPixel( x:number = 0, y:number = 0 ):dword{return this.getRawPixel(( ( y * this.dim.x ) + x )* this.bpp );}
     /***
      * @param x
      * @param y
@@ -687,7 +687,7 @@ export class Tiles implements tiles{
 
 export class TemplateDraw{
 
-    private static readonly DEFAULT_COLOR = 0xFF000000;
+    private static readonly DEFAULT_COLOR:dword = 0xFF000000;
 
     private frameBufferHandler:FrameBuffer;
 

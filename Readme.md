@@ -44,7 +44,7 @@ LayoutScroll.main(0,["/Test/LayoutScroll.js"]);
 |  | Window Render    |  |
 | :--------------- |:---------------:| -----:|
 |   |<img src="https://i.ibb.co/vdk7QB5/framerender.png">| |
-
+|   |<a href="https://ibb.co/kxSWqhf"><img src="https://i.ibb.co/9NrCyqL/Untitled-Diagram-Page-6.png" alt="Untitled-Diagram-Page-6" border="0"></a>|    |
 ## Libraries
 
 - Glib UML
@@ -61,4 +61,9 @@ LayoutScroll.main(0,["/Test/LayoutScroll.js"]);
 
 - 0.0.1-alpha
 
-<a href="https://ibb.co/xMKLgXd"><img src="https://i.ibb.co/fCVFNqL/Sans-titre.png" alt="Sans-titre" border="0"></a>
+
+<p align="center">
+    <a href="https://ibb.co/xMKLgXd"><img src="https://i.ibb.co/fCVFNqL/Sans-titre.png" alt="Sans-titre" border="0"></a> 
+</p>
+
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/yQF3cby/ezgif-com-gif-maker.gif" alt="ezgif-com-gif-maker" border="0" /></a>

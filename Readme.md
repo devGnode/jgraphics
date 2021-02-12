@@ -4,7 +4,7 @@
 
 ## Preamble
 
-Why make this, in real this it to have no usage, just  
+i have discovered the html canvas, near of 2015 and i have find that fabulous  ( i know that exists in another language like python ) but it was a revelation for me, of course i don't work on it all my free time but i come back on it often, i have tried... i tried a lot of things, gba emulator, emulate a MDA/CGA graphical ASCII code page,  but I scatter in all my projets and nothing was been made of correct ^^ all codes are staying of  javascript testing pages.  However i have re-worked on it this year and resulting of multiple project, i post this first project. 
 
 ## Techno
 
@@ -47,9 +47,15 @@ LayoutScroll.main(0,["/Test/LayoutScroll.js"]);
 
 ## Libraries
 
-- Glib
+- Glib UML
 
-<img src="https://i.ibb.co/ysXscpR/Untitled-Diagram-Page-3-2.png" alt="Untitled-Diagram-Page-3-2">
+<a href="https://ibb.co/ysXscpR"><img src="https://i.ibb.co/6sms78Z/Untitled-Diagram-Page-3-2.png" alt="Untitled-Diagram-Page-3-2" border="0"></a>
+
+## Implemented
+
+|  | Window Render    |  |
+| :--------------- |:---------------:| -----:|
+|   |<a href="https://ibb.co/F51qK1C"><img src="https://i.ibb.co/9b03N0S/Untitled-Diagram-Page-5.png" alt="Untitled-Diagram-Page-5" border="0" /></a>| |
 
 ## prod
 

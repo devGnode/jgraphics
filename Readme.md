@@ -62,3 +62,4 @@ LayoutScroll.main(0,["/Test/LayoutScroll.js"]);
 - 0.0.1-alpha
 
 <a href="https://ibb.co/xMKLgXd"><img src="https://i.ibb.co/fCVFNqL/Sans-titre.png" alt="Sans-titre" border="0"></a>
+<a href="https://imgbb.com/"><img src="https://i.ibb.co/yQF3cby/ezgif-com-gif-maker.gif" alt="ezgif-com-gif-maker" border="0" /></a>

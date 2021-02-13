@@ -557,22 +557,18 @@ CP437.CP_437_9x16 = [
             let eip:number = 0, add:number = 1, len:number = chrBitmap.length,
                 byte:number,out:Array<number> = [], binary:string;
 
-            // find the good ratio
             if(offsetX<=0||offsetY<=0) throw new TypeError("offsetX or offsetY should be greater than equals to 1");
-            while(  Math.floor( (offsetX*offsetY) / add ) !== 8 )add++;
+            while(  (offsetX*offsetY) / add !== 8 )add++;
 
             while( eip < len ){
                 binary = chrBitmap.slice(0,add).join("");
                 byte = parseInt( binary, 2 );
-                // Word Case
-                if( ( binary.length > 8)  ) {
+                if( binary.length > 4 ){
                     out.push( ( byte >> 8 )&0xff );
                     out.push( byte&0xff );
+                }else out.push( byte );
 
-                // Byte Case
-                } else out.push( byte );
-
-                chrBitmap = chrBitmap.slice(add)
+                chrBitmap = chrBitmap.slice(add);
                 eip += add;
             }
             return out;

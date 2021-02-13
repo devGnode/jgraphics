@@ -8,7 +8,7 @@ export enum PAGE_CODE{
     CP437_9_14 = 0x00,
     CP437_9_16 = 0x01,
     CP437_8_16 = 0x02,
-    CP437_8_8 = 0x04
+    CP437_8_8  = 0x04
 }
 
 export class KEYS_CP437 {

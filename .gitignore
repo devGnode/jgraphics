@@ -2,6 +2,9 @@
 .idea/
 node_modules/
 
+#
+resources/*
+
 # output
 prod-common/
 prod-web/

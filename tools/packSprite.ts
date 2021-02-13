@@ -1,6 +1,6 @@
 
 import "lib-utils-ts/src/globalUtils"
-import {FileWriter} from "../lib-utils-ts/src/file/IOStream";
+import {FileWriter} from "lib-utils-ts/src/file/IOStream";
 
 let t = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -261,36 +261,36 @@ let t = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 class utils{
 
-    public static pack( chr:Array<number>, offsetX:number = 1, offsetY:number = 1, chrx?:number  ): Array<number>{
-        let i:number = 0, add:number = (offsetX*offsetY) / 16, len:number = chr.length, out:Array<number> = [],
-            binary:string;
+    public static pack( chrBitmap:Array<number>, offsetX:number = 1, offsetY:number = 1, chrx?:number  ): Array<number>{
+        let eip:number = 0, add:number = 1, len:number = chrBitmap.length,
+            byte:number,out:Array<number> = [], binary:string;
 
-        add=1;
+        if(offsetX<=0||offsetY<=0) throw new TypeError("offsetX or offsetY should be greater than equals to 1");
         while(  (offsetX*offsetY) / add !== 8 )add++;
+
        // console.log("ADDDDDDDé ",add);
-        let tt,tkr;
       //  if(chrx&&chrx===5)console.log('PACK <------->' ,chr , "" )
-        while( i < len ){
-            binary = chr.slice(0,add).join("");
+        while( eip < len ){
+            binary = chrBitmap.slice(0,add).join("");
             //if(chrx&&chrx===5)console.log(binary, "-+- ", i,"/", len)
-            tt= parseInt( binary, 2 );
-            if( ( binary.length > 4)  ){
-                out.push( ( tt >> 8 )&0xff );
-                out.push( tt&0xff );
-            }else out.push( tt );
-            chr = chr.slice(add);
+            byte = parseInt( binary, 2 );
+            if( binary.length > 4 ){
+                out.push( ( byte >> 8 )&0xff );
+                out.push( byte&0xff );
+            }else out.push( byte );
+            chrBitmap = chrBitmap.slice(add);
             //if(chrx&&chrx===3||chrx===257) console.log("chr length = ", chr.length);
          //   if(chrx&&chrx===5)console.log(tt, " ADDD ", i,"/", len)
          //   if(chrx&&chrx===257)console.log(tt, " ADDD ", i,"/", len)
-            i += add;
+            eip += add;
         }
        // if(chrx&&chrx===3)console.log('<------->' ,chrx , " == ", out, out.map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(",") )
         return out;
     }
 
     public static unpack( cp4378x8: Array<number>, chr:number = 0, offsetX:number = 1, offsetY:number = 1, chrx?:number ): Array<number> {
-        let offset: number = chr * offsetX,
-            base: number = offset + offsetY,
+        let offset: number = chr * ((offsetX*offsetY)/8),
+            base: number = offset + ((offsetX*offsetY)/8),
             v: string, out: Array<number> = Array<number>();
 
      //   console.log( `offset : ${offset} / base : ${base}` )

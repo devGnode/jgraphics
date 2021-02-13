@@ -827,9 +827,10 @@ CP437.CP_437_8x16 = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
     }
     let i:number = 0;
     CP437.CP_437_8x8 = new Array<Array<number>>(255);
-    //CP437.CP_437_8x16 = new Array<Array<number>>(255);
+    CP437.CP_437_8x16 = new Array<Array<number>>(255);
+
     for(; i < 256; i++ ) CP437.CP_437_8x8[i] = utils.unpack( i, 8, 8 );
-    //for(i=0; i < 256; i++ ) CP437.CP_437_8x16[i] = utils.unpack( i, 8, 16 );
+    for(i=0; i < 256; i++ ) CP437.CP_437_8x16[i] = utils.unpack( i, 8, 16 );
 
 })([
     0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,

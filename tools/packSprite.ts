@@ -1,5 +1,8 @@
 
-let t =[ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+import "lib-utils-ts/src/globalUtils"
+import {FileWriter} from "../lib-utils-ts/src/file/IOStream";
+
+let t = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -256,28 +259,50 @@ let t =[ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ];
 
-
 class utils{
 
-    public static pack( chr:Array<number>, offsetX:number = 1, offsetY:number = 1  ): Array<number>{
-        let i:number = 0, add:number = (offsetX*offsetY) / 16, len:number = chr.length, out:Array<number> = [];
+    public static pack( chr:Array<number>, offsetX:number = 1, offsetY:number = 1, chrx?:number  ): Array<number>{
+        let i:number = 0, add:number = (offsetX*offsetY) / 16, len:number = chr.length, out:Array<number> = [],
+            binary:string;
+
+        add=1;
+        while(  (offsetX*offsetY) / add !== 8 )add++;
+       // console.log("ADDDDDDDé ",add);
+        let tt,tkr;
+      //  if(chrx&&chrx===5)console.log('PACK <------->' ,chr , "" )
         while( i < len ){
-            out.push( parseInt( chr.slice(0,add).reverse().join(""), 2 ) );
-            chr = chr.slice(add)
+            binary = chr.slice(0,add).join("");
+            //if(chrx&&chrx===5)console.log(binary, "-+- ", i,"/", len)
+            tt= parseInt( binary, 2 );
+            if( ( binary.length > 4)  ){
+                out.push( ( tt >> 8 )&0xff );
+                out.push( tt&0xff );
+            }else out.push( tt );
+            chr = chr.slice(add);
+            //if(chrx&&chrx===3||chrx===257) console.log("chr length = ", chr.length);
+         //   if(chrx&&chrx===5)console.log(tt, " ADDD ", i,"/", len)
+         //   if(chrx&&chrx===257)console.log(tt, " ADDD ", i,"/", len)
             i += add;
         }
-
+       // if(chrx&&chrx===3)console.log('<------->' ,chrx , " == ", out, out.map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(",") )
         return out;
     }
 
-    public static unpack( cp4378x8: Array<number>, chr:number = 0, offsetX:number = 1, offsetY:number = 1 ): Array<number> {
+    public static unpack( cp4378x8: Array<number>, chr:number = 0, offsetX:number = 1, offsetY:number = 1, chrx?:number ): Array<number> {
         let offset: number = chr * offsetX,
             base: number = offset + offsetY,
             v: string, out: Array<number> = Array<number>();
 
+     //   console.log( `offset : ${offset} / base : ${base}` )
+      //  if( chrx === 3 ) console.log("---------------------------- = ", cp4378x8, base, offset )
         while (offset < base) {
             v = Number((cp4378x8[offset] << 8 | cp4378x8[offset + 1])).toString(2);
-
+           /* if( chrx === 3 ) console.log("***---------> ", offset, base, cp4378x8[offset]  ,cp4378x8[offset + 1]," v ---------------------------- = ", v, String("0")
+                .repeat( ( 16 - v.length ) )
+                .split("")
+                .map(value=>parseInt(value))
+                .concat(v.split("").map(value=>parseInt(value))) );*/
+           // console.log("LENGT ", 16 - v.length )
             out= out.concat(
                 String("0")
                     .repeat( ( 16 - v.length ) )
@@ -287,39 +312,74 @@ class utils{
             );
             offset += 2;
         }
+      //  if( chrx === 3 ) console.log("outer ---------------------------- = ", out, out.join(","), utils.pack(out,8,16,257), utils.unpack(utils.pack(out,8,16,null),0,8,16,0), utils.pack(utils.unpack(utils.pack(out,8,16,null),0,8,16,0),8,16,null)  )
         return out;
     }
 }
 
-console.log(utils.pack(t[1],9,14))//.map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)));
-console.log(utils.unpack(utils.pack(t[1],9,14),0,9,14).join(","));
+//console.log(utils.pack(t[1],9,14))//.map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)));
+//console.log(utils.unpack(utils.pack(t[1],9,14),0,9,14).join(","));
 
 let i:number = 0,j=0, tmp, _tmp;
 console.log("=====================================");
 //for(; i < 256; i++ ); console.log(utils.pack(t[1],8,16).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(",")+",");
 function delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
-for(i=0; i< t.length; i++) console.log("i == ", t[i].length );
 
+/*console.log("=================1222222222222222222222=================================");
+console.log(utils.unpack([0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00],0,8,8,0), [0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0]);
+console.log(utils.pack(utils.unpack([0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00],0,8,8,0),8,8,0).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+console.log("*************************");
+console.log(utils.pack([0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0],8,8,3).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+console.log("=====================22222222222222222222=============================");*/
+/*console.log("=================12222222222333332222222222=================================");
+console.log(utils.unpack([0x00,0x00,0x00,0x00,0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00,0x00,0x00,0x00],0,8,16,0), [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+console.log(utils.pack(utils.unpack([0x00,0x00,0x00,0x00,0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00,0x00,0x00,0x00],0,8,16,0),8,16,0).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+console.log("*************************");
+console.log(utils.pack([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],8,16,3).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+console.log("=====================222222233332222222222222=============================");*/
 (async ()=> {
+    let buffer:string = "", xtmp:string, bufferTmp:Array<number>;
+
     for (i=0; i < 256; i++) {
-        _tmp = utils.unpack( utils.pack(t[i], 8, 16), i, 8, 16 );
+        bufferTmp = utils.pack(t[i], 8, 16, i);
+        _tmp = utils.unpack( bufferTmp, 0, 8, 16, i );
+       // console.log("iiiii==,",i,_tmp.join(","), utils.pack(t[i], 8, 16, i).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+        //console.log("iiiii==,",i,  t[i].join(","))
+       // console.log("iiiii==,",i,_tmp.join(","))
+        //console.log( utils.pack(t[i], 8, 16, i), utils.unpack( utils.pack(t[i], 8, 16, i), 0, 8, 16 ).join(",") )
         j=0;
-        while( ( tmp = t[i][j]) ){
-            if(tmp !== _tmp[j]) {
+        while( ( tmp = t[i][j]) !== undefined ){
+           if(tmp !== _tmp[j]) {
                 console.log(`char '${i}' has failed : element ${j} has different than origin : ${_tmp[j]} == ${t[i][j]}`);
                 console.log(_tmp.length,"===",t[i].length);
-                console.log(_tmp.join(","),"\n",t[i].join(","));
                 break;
             }
+            j++;
         }
-        console.log(i, " : OK ");
+        console.log(_tmp.join(",")+"\n"+t[i].join(","));
+        buffer += (xtmp =  bufferTmp.map( v=>"0x"+(v.toString(16).length===1? "0" : "") + v.toString(16) ).join(",") )+",\n";
+
+        if( j===8*16) console.log(`${i}\t: OK :\t ${xtmp}`); else console.log("=== FAILED ===")
         await delay(500);
+
     }
+    new FileWriter('./file.txt').write(`[ ${buffer} ]`);
 })();
+
+
+
 // 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 // 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,1,0,1,0,0,0,0,0,0,1,0,1,0,0,0,0,0,0,1,0,1,0,1,1,1,1,0,1,0,1,0,0,1,1,0,0,1,0,1,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 //0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,1,1,1,0,1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,1,0,1,1,0,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,1,1,1,1,1
+
+
+
+
+
+/*let p=0;
+for(; p<100000;p++){ if(Math.floor((9*16)/p) === 8)break; }
+console.log("smldùsq ", p);*/

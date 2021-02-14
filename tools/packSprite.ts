@@ -1,6 +1,7 @@
 
 import "lib-utils-ts/src/globalUtils"
 import {FileWriter} from "lib-utils-ts/src/file/IOStream";
+import {RuntimeException} from "lib-utils-ts/src/Exception";
 
 let t = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,1,0,0,0,0,0,0,1,1,0,1,0,0,1,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,1,1,1,1,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -263,16 +264,24 @@ class utils{
 
     public static pack( chrBitmap:Array<number>, offsetX:number = 1, offsetY:number = 1, chrx?:number  ): Array<number>{
         let eip:number = 0, add:number = 1, len:number = chrBitmap.length,
-            byte:number,out:Array<number> = [], binary:string;
+            byte:number,out:Array<number> = [], binary:string, k:boolean = false;
 
-        if(offsetX<=0||offsetY<=0) throw new TypeError("offsetX or offsetY should be greater than equals to 1");
-        while(  (offsetX*offsetY) / add !== 8 )add++;
+        if(offsetX%2==1&&offsetY%2===1) throw new RuntimeException(`offsetX and offsetY can't be odd numbers !`);
+        if(offsetX<=0||offsetY<=0) throw new RuntimeException("offsetX or offsetY should be greater than equals to 1");
+        while(  Math.floor( (offsetX*offsetY) / add)  !== 8 )add++;
+        if( add%2===1 ) {
+            k=true;
+            add++;
+        }
 
-       // console.log("ADDDDDDDé ",add);
-      //  if(chrx&&chrx===5)console.log('PACK <------->' ,chr , "" )
+       console.log("ADDDDDDDé ",add);
+        console.log("ADDDDDDDé ", eip, len);
+      //  if(chrx&&chrx===5)
+        console.log('PACK <------->' ,chrBitmap.join(",") , "" )
         while( eip < len ){
             binary = chrBitmap.slice(0,add).join("");
-            //if(chrx&&chrx===5)console.log(binary, "-+- ", i,"/", len)
+           // if(chrx&&chrx===5)
+                console.log(binary, "-+- ", i,"/", len, "bitmap leng", chrBitmap.length)
             byte = parseInt( binary, 2 );
             if( binary.length > 4 ){
                 out.push( ( byte >> 8 )&0xff );
@@ -285,15 +294,17 @@ class utils{
             eip += add;
         }
        // if(chrx&&chrx===3)console.log('<------->' ,chrx , " == ", out, out.map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(",") )
+        if(k)out.pop();
         return out;
     }
 
     public static unpack( cp4378x8: Array<number>, chr:number = 0, offsetX:number = 1, offsetY:number = 1, chrx?:number ): Array<number> {
-        let offset: number = chr * ((offsetX*offsetY)/8),
-            base: number = offset + ((offsetX*offsetY)/8),
+        let offset: number = chr * ( ((offsetX*offsetY)/8) + ((offsetX*offsetY)%8) ),
+            base: number = Math.floor( offset + ((offsetX*offsetY)/8) + ((offsetX*offsetY)%8) ),
             v: string, out: Array<number> = Array<number>();
 
-     //   console.log( `offset : ${offset} / base : ${base}` )
+        if(offsetX%2==1&&offsetY%2===1) throw new TypeError(`offsetX and offsetY can't be odd numbers`);
+       console.log( `offset : ${offset} / base : ${base}` )
       //  if( chrx === 3 ) console.log("---------------------------- = ", cp4378x8, base, offset )
         while (offset < base) {
             v = Number((cp4378x8[offset] << 8 | cp4378x8[offset + 1])).toString(2);
@@ -339,7 +350,15 @@ console.log(utils.pack(utils.unpack([0x00,0x00,0x00,0x00,0x6C,0xFE,0xFE,0xFE,0x7
 console.log("*************************");
 console.log(utils.pack([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],8,16,3).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
 console.log("=====================222222233332222222222222=============================");*/
-(async ()=> {
+//console.log("=================12222222222333332222222222=================================");
+//console.log(utils.unpack([0x00,0x00,0x00,0x00,0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00,0x00,0x00,0x00],0,8,16,0), [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+//console.log(utils.pack(utils.unpack([0x00,0x00,0x00,0x00,0x6C,0xFE,0xFE,0xFE,0x7C,0x38,0x10,0x00,0x00,0x00,0x00],0,8,16,0),8,16,0).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+console.log("*************************");
+console.log("GIF", utils.unpack(utils.pack(    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ,9,14,3),0,9,14).join(","))
+console.log("*************************");
+console.log("GIF", utils.pack(    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] ,9,14,3).map(v=>"0x"+(v.toString(16).length===1? "0" : "")+v.toString(16)).join(","))
+console.log("=====================222222233332222222222222=============================");
+/*(async ()=> {
     let buffer:string = "", xtmp:string, bufferTmp:Array<number>;
 
     for (i=0; i < 256; i++) {
@@ -365,8 +384,8 @@ console.log("=====================222222233332222222222222======================
         await delay(500);
 
     }
-    new FileWriter('./file.txt').write(`[ ${buffer} ]`);
-})();
+    new FileWriter('./resources/file.txt').write(`[ ${buffer} ]`);
+})();*/
 
 
 

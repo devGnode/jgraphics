@@ -97,7 +97,7 @@ export class GWindow extends GFrame{
     render():GObject{
         if(this.isMounted()) return this.window;
         let wrap :Pane, header = new Pane(), body = new Pane(),
-            gt : GText = new GText(this.Title).setColor(0x505050);
+            gt : GText = new GText(this.Title).setFontFamily(GText.CP437_8_16).setColor(0x505050);
         this.window
             //
             .setBackground(0xc0c0c0) // --> Background

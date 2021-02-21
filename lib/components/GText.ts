@@ -6,7 +6,7 @@ export class GText extends GObject{
 
     // typo available
     public static readonly CP437_9_14:PAGE_CODE = PAGE_CODE.CP437_9_14;
-    public static readonly CP437_9_16:PAGE_CODE = PAGE_CODE.CP437_8_16;
+    public static readonly CP437_9_16:PAGE_CODE = PAGE_CODE.CP437_9_16;
     public static readonly CP437_8_16:PAGE_CODE = PAGE_CODE.CP437_8_16;
     public static readonly CP437_8_8:PAGE_CODE  = PAGE_CODE.CP437_8_8;
     //
